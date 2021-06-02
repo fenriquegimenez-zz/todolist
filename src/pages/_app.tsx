@@ -2,8 +2,10 @@
 import type { AppProps /*, AppContext */ } from "next/app"
 import { Auth0Provider } from "@auth0/auth0-react"
 import "bootstrap/dist/css/bootstrap.min.css"
+import "firebase/firestore"
 
 import { auth0 } from "@/services/auth0"
+import Layout from "@/components/layout/Layout"
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -12,7 +14,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       clientId={auth0.clientID}
       redirectUri="http://localhost:3000"
     >
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </Auth0Provider>
   )
 }
