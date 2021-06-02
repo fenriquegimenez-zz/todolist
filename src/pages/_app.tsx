@@ -2,6 +2,7 @@
 import type { AppProps /*, AppContext */ } from "next/app"
 import { Auth0Provider } from "@auth0/auth0-react"
 import "bootstrap/dist/css/bootstrap.min.css"
+import "@fortawesome/free-solid-svg-icons"
 import "firebase/firestore"
 
 import { auth0 } from "@/services/auth0"

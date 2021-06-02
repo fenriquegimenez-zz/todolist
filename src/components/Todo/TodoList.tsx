@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from "react"
 import { db } from "@/services/firestore"
 import { Task } from "@/types/types"
+import { useAuth0 } from "@auth0/auth0-react"
 
 const TodoList = () => {
   const [tasks, setTasks] = useState<Task[]>([])
+  const { user, isLoading } = useAuth0()
 
   const getTasks = async (user: string) => {
-    await db.collection(user).onSnapshot(querySnapshot => {
-      const todos: Task[] = []
-      querySnapshot.forEach(doc => {
-        tasks.push({ ...doc.data(), id: doc.id } as Task)
+    try {
+      db.collection(user).onSnapshot(querySnapshot => {
+        const todos: Task[] = []
+        querySnapshot.forEach(doc => {
+          tasks.push({ ...doc.data(), id: doc.id } as Task)
+        })
+        setTasks(todos)
       })
-      setTasks(todos)
-    })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {
-    const userSaved = localStorage.getItem("user")
-    getTasks(userSaved as string)
+    getTasks(user?.nickname as string)
     console.log("todos", tasks)
-  }, [])
-  return (
+  }, [user])
+  return user ? (
     <div>
       <ul className="list-group">
         {tasks.map(task => {
@@ -32,6 +37,8 @@ const TodoList = () => {
         })}
       </ul>
     </div>
+  ) : (
+    <div className="text-center">Sin tareas</div>
   )
 }
 

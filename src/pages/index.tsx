@@ -5,19 +5,14 @@ import LogoutButton from "@/components/buttons/LogoutButton"
 import Spinner from "@/components/spinner/Spinner"
 import TodoForm from "@/components/Todo/TodoForm"
 import TodoList from "@/components/Todo/TodoList"
-import { useEffect } from "react"
 
 const index = () => {
   const { isAuthenticated, user, isLoading } = useAuth0()
 
-  useEffect(() => {
-    localStorage.setItem("user", user?.nickname as string)
-  }, [user?.nickname])
-
   return (
     <div className="text-center">
       <h1 className="text-center">Lista de tareas</h1>
-      {isAuthenticated && `Hola, ${user?.name}`}
+      {isAuthenticated && `Hola, ${user?.nickname}`}
       {isLoading ? (
         <Spinner />
       ) : isAuthenticated ? (

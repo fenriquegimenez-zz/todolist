@@ -1,6 +1,10 @@
 import React, { FormEvent, useState } from "react"
 import { db } from "@/services/firestore"
 import { useAuth0 } from "@auth0/auth0-react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
+import { isDay } from "utils/utils"
+import Spinner from "../spinner/Spinner"
 
 const TodoForm = () => {
   const [newTodo, setNewTodo] = useState("")
@@ -28,13 +32,18 @@ const TodoForm = () => {
       <div className="input-group text-center">
         <input
           type="text"
-          className="form-control"
+          className={`form-control ${
+            isDay ? "bg-light text-dark" : "bg-dark text-light"
+          }`}
           placeholder="Ingrese su tarea"
           onChange={e => setNewTodo(e.target.value)}
           value={newTodo}
         />
-        <button className="btn btn-success">
-          {isLoading ? "..." : "Cargar"}
+        <button
+          style={{ minWidth: "75px", maxHeight: "40px" }}
+          className="btn btn-success"
+        >
+          {isLoading ? <Spinner /> : "Cargar"}
         </button>
       </div>
     </form>

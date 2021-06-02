@@ -1,11 +1,14 @@
-import React from "react"
+import { isDay } from "utils/utils"
 
 const Spinner = () => {
   return (
-    <div className="text-center">
-      <div className="spinner-grow text-secondary" role="status">
-        <span className="visually-hidden">Loading</span>
-      </div>
+    <div
+      className={`spinner-grow m-auto ${
+        isDay ? "text-secondary" : "text-light"
+      }`}
+      role="status"
+    >
+      <span className="visually-hidden">Loading</span>
     </div>
   )
 }

@@ -1,11 +1,17 @@
 import React from "react"
 import { LayoutChild } from "@/types/types"
+import { isDay } from "utils/utils"
 
 const Layout = ({ children }: LayoutChild) => {
-  const time = new Date().getHours()
-  const isDay = time > 7 && time < 19
   return (
-    <div className={`container ${isDay ? "bg-light" : "bg-dark"}`}>
+    <div
+      className={`container ${
+        isDay ? "bg-light text-dark" : "bg-dark text-light "
+      }`}
+      style={{
+        height: "90vh",
+      }}
+    >
       {children}
     </div>
   )
